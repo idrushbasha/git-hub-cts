@@ -1,0 +1,76 @@
+{
+	"name": "existdataflow",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "employee2source1",
+						"type": "DatasetReference"
+					},
+					"name": "employee"
+				},
+				{
+					"dataset": {
+						"referenceName": "dep1",
+						"type": "DatasetReference"
+					},
+					"name": "departments"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "dep1",
+						"type": "DatasetReference"
+					},
+					"name": "existsink",
+					"rejectedDataLinkedService": {
+						"referenceName": "AzureBlobStorage1",
+						"type": "LinkedServiceReference"
+					}
+				}
+			],
+			"transformations": [
+				{
+					"name": "exists1"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          id as string,",
+				"          name as string,",
+				"          sal as string,",
+				"          dep_id as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> employee",
+				"source(output(",
+				"          dep_id as string,",
+				"          name as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> departments",
+				"employee, departments exists(employee@dep_id == departments@dep_id,",
+				"     negate:true,",
+				"     broadcast: 'auto')~> exists1",
+				"exists1 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     input(",
+				"          dep_id as string,",
+				"          name as string",
+				"     ),",
+				"     filePattern:'exists.csv',",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     outputAssertFailedRows: true,",
+				"     assertFailure_container: 'adfdemo',",
+				"     assertFailure_folderPath: 'input',",
+				"     partitionBy('hash', 1)) ~> existsink"
+			]
+		}
+	}
+}

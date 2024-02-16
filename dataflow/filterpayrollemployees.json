@@ -1,0 +1,52 @@
+{
+	"name": "filterpayrollemployees",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "employee1_souce",
+						"type": "DatasetReference"
+					},
+					"name": "employees"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "sourcedelimited",
+						"type": "DatasetReference"
+					},
+					"name": "payrollemployeesink"
+				}
+			],
+			"transformations": [
+				{
+					"name": "filterpayrolldepartment"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          id as string,",
+				"          name as string,",
+				"          sal as string,",
+				"          dep_id as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> employees",
+				"employees filter(greater(sal,'1000')) ~> filterpayrolldepartment",
+				"filterpayrolldepartment sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     input(",
+				"          munna as string,",
+				"          male as string,",
+				"          cts as string",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> payrollemployeesink"
+			]
+		}
+	}
+}

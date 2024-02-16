@@ -1,0 +1,63 @@
+{
+	"name": "deriveddataflow",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "employee2source",
+						"type": "DatasetReference"
+					},
+					"name": "employee2"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "derivednamesink",
+						"type": "DatasetReference"
+					},
+					"name": "derivednamesink",
+					"rejectedDataLinkedService": {
+						"referenceName": "AzureBlobStorage1",
+						"type": "LinkedServiceReference"
+					}
+				}
+			],
+			"transformations": [
+				{
+					"name": "derivedColumn1"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          id as string,",
+				"          name as string,",
+				"          sal as string,",
+				"          dep_id as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> employee2",
+				"employee2 derive(name = upper(name),",
+				"          new_name = iif(isNull(name),'unknown',upper(name))) ~> derivedColumn1",
+				"derivedColumn1 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     input(",
+				"          id as string,",
+				"          name as string,",
+				"          sal as string,",
+				"          dep_id as string",
+				"     ),",
+				"     filePattern:'munna.csv',",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     outputAssertFailedRows: true,",
+				"     assertFailure_container: 'adfdemo',",
+				"     assertFailure_folderPath: 'input',",
+				"     partitionBy('hash', 1)) ~> derivednamesink"
+			]
+		}
+	}
+}

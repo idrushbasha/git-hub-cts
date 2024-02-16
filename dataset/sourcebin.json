@@ -1,0 +1,19 @@
+{
+	"name": "sourcebin",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureBlobStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Binary",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "munna.csv",
+				"container": "kantar"
+			}
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

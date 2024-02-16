@@ -1,0 +1,9 @@
+{
+	"name": "maheermunna",
+	"location": "centralindia",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "e563bded-004b-4c4b-acab-8f449a0a1420",
+		"tenantId": "4fbb5aeb-c34a-4d9b-b75c-5e7ea14a56fc"
+	}
+}
