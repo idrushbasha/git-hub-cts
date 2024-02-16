@@ -1,0 +1,36 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "maheermunna"
+		},
+		"AzureBlobStorage1_connectionString": {
+			"value": ""
+		},
+		"AzureBlobStorage2_connectionString": {
+			"value": ""
+		},
+		"AzureDataLakeStorage1_accountKey": {
+			"value": ""
+		},
+		"SqlServer1_connectionString": {
+			"value": ""
+		},
+		"carAzureBlobStorage2_connectionString": {
+			"value": ""
+		},
+		"linkedserviceAzureBlobStorage1_connectionString": {
+			"value": ""
+		},
+		"linkedservice_forsql_connectionString": {
+			"value": ""
+		},
+		"AzureDataLakeStorage1_properties_typeProperties_url": {
+			"value": "https://storagedemomunna.dfs.core.windows.net/"
+		},
+		"eventtrigger2_properties_typeProperties_scope": {
+			"value": "/subscriptions/355a36c4-991c-4f4f-977b-050f8eca6758/resourceGroups/storage_munna/providers/Microsoft.Storage/storageAccounts/storagedemomunna"
+		}
+	}
+}
