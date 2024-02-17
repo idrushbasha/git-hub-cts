@@ -1,0 +1,19 @@
+{
+	"name": "inputfolderBinary1",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "linkedserviceAzureBlobStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Binary",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "git_hub_commanda_1.txt",
+				"container": "adfdemo"
+			}
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

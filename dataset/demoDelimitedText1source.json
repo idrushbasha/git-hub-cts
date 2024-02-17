@@ -1,0 +1,41 @@
+{
+	"name": "demoDelimitedText1source",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureBlobStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "demo.txt",
+				"container": "kantar"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "shaik",
+				"type": "String"
+			},
+			{
+				"name": "gore",
+				"type": "String"
+			},
+			{
+				"name": "idrush",
+				"type": "String"
+			},
+			{
+				"name": "basha",
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

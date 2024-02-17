@@ -1,0 +1,26 @@
+{
+	"name": "eventtrigger2",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Stopped",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "pipeline2",
+					"type": "PipelineReference"
+				}
+			}
+		],
+		"type": "BlobEventsTrigger",
+		"typeProperties": {
+			"blobPathBeginsWith": "/adfdemo/blobs/innerfile",
+			"blobPathEndsWith": ".txt",
+			"ignoreEmptyBlobs": true,
+			"scope": "/subscriptions/355a36c4-991c-4f4f-977b-050f8eca6758/resourceGroups/storage_munna/providers/Microsoft.Storage/storageAccounts/storagedemomunna",
+			"events": [
+				"Microsoft.Storage.BlobDeleted",
+				"Microsoft.Storage.BlobCreated"
+			]
+		}
+	}
+}

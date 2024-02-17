@@ -1,0 +1,79 @@
+{
+	"name": "uniondataflow",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "emp2_source",
+						"type": "DatasetReference"
+					},
+					"name": "emp1"
+				},
+				{
+					"dataset": {
+						"referenceName": "emp2_source2",
+						"type": "DatasetReference"
+					},
+					"name": "emp2"
+				},
+				{
+					"dataset": {
+						"referenceName": "emp3",
+						"type": "DatasetReference"
+					},
+					"name": "emp3"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "totalemployesssink",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				}
+			],
+			"transformations": [
+				{
+					"name": "unionemployees"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          empid as string,",
+				"          name as string,",
+				"          department as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> emp1",
+				"source(output(",
+				"          empid as string,",
+				"          name as string,",
+				"          department as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> emp2",
+				"source(output(",
+				"          empid as string,",
+				"          name as string,",
+				"          department as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> emp3",
+				"emp1, emp2, emp3 union(byName: true)~> unionemployees",
+				"unionemployees sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     input(",
+				"          {these is a cognizant rto list} as string",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> sink1"
+			]
+		}
+	}
+}
